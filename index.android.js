@@ -12,22 +12,17 @@ import {
   View
 } from 'react-native';
 
+import ScrollableTabView, {DefaultTabBar, } from 'react-native-scrollable-tab-view';
+
 export default class SleepPatternApp extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-      {'\n'}Fucking amazing
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <ScrollableTabView renderTabBar={() => <DefaultTabBar />}>
+        <Text tabLabel='Home'>Home page has a button and timer that shows
+        the time spent asleep and the interruption time during sleep</Text>
+        <Text tabLabel='Analytics'>Shows basic stats like the number of hours
+        slept per day and the total number of interruptions encountered</Text>
+      </ScrollableTabView>
     );
   }
 }
