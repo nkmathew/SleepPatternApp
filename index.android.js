@@ -9,19 +9,20 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 
 import ScrollableTabView, {DefaultTabBar, } from 'react-native-scrollable-tab-view';
+import HomePage from './homepage.js';
+import AnalyticsPage from './analytics.js';
 
 export default class SleepPatternApp extends Component {
   render() {
     return (
       <ScrollableTabView renderTabBar={() => <DefaultTabBar />}>
-        <Text tabLabel='Home'>Home page has a button and timer that shows
-        the time spent asleep and the interruption time during sleep</Text>
-        <Text tabLabel='Analytics'>Shows basic stats like the number of hours
-        slept per day and the total number of interruptions encountered</Text>
+        <HomePage tabLabel="HOMEPAGE"/>
+        <AnalyticsPage tabLabel="ANALYTICS"/>
       </ScrollableTabView>
     );
   }
