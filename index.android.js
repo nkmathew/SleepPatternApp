@@ -13,38 +13,66 @@ import {
   ScrollView
 } from 'react-native';
 
-import ScrollableTabView, {DefaultTabBar, } from 'react-native-scrollable-tab-view';
-import HomePage from './homepage.js';
-import AnalyticsPage from './analytics.js';
+import {
+  Container,
+  Content,
+  Header,
+  Title,
+  H1,
+  Spinner,
+  Footer,
+  FooterTab,
+  Badge,
+  Button,
+  Icon,
+  Card,
+  CardItem,
+  Image,
+  Thumbnail,
+  Fab
+} from 'native-base';
+
+// import HomePage from './homepage.js';
+// import AnalyticsPage from './analytics.js';
+import AllWidgets from './all-widgets.js';
 
 export default class SleepPatternApp extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      active: 'true'
+    };
+  }
+
   render() {
     return (
-      <ScrollableTabView renderTabBar={() => <DefaultTabBar />}>
-        <HomePage tabLabel="HOMEPAGE"/>
-        <AnalyticsPage tabLabel="ANALYTICS"/>
-      </ScrollableTabView>
+      <Container>
+        <Header>
+          <Button transparent>
+            <Icon name='ios-arrow-back' />
+          </Button>
+          <Title>Home</Title>
+        </Header>
+        <Content>
+          <H1>Some lovely text to boot</H1>
+        </Content>
+        <Footer>
+          <FooterTab>
+            <Button>
+              Navigate
+              <Icon name='ios-compass' />
+            </Button>
+            <Button active>
+              Contact
+              <Icon name='ios-contact-outline' />
+            </Button>
+          </FooterTab>
+        </Footer>
+      </Container>
     );
-  }
+  };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('SleepPatternApp', () => SleepPatternApp);
