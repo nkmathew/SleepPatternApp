@@ -3,6 +3,7 @@
   and scripts added to the `PATH`
 + NodeJS >= 4
 + Yarn >= 0.17.0
++ `npm install -g react-native-cli`
 + Install `forever` task runner if on Linux and `forever-win` if on Windows:
 
   ```shell
