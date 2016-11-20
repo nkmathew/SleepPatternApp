@@ -51,12 +51,52 @@ const css = StyleSheet.create({
   },
 });
 
+import SQLite from 'react-native-sqlite-storage';
+
 export default class SleepPatternApp extends Component {
   constructor() {
     super();
-    this.state = {
-      active: 'true'
-    };
+
+    var db = SQLite.openDatabase(
+      "test.db", "1.0", "Test Database", 200000,
+      this.openCB, this.errorCB
+    );
+    db.transaction((tx) => {
+      // Initialize table
+      tx.executeSql(`
+      CREATE TABLE IF NOT EXISTS sleeping_data (
+        id INTEGER PRIMARY KEY,
+        firstname text NOT NULL,
+        lastname text NOT NULL
+      )`);
+      // Insert values
+      tx.executeSql(`
+      INSERT INTO sleeping_data (id, firstname, lastname) VALUES
+      (12, 'Mathew', 'Kipkoech')
+      `);
+      tx.executeSql(`SELECT * FROM sleeping_data`, [], (tx, results) => {
+        console.log("Db:", tx);
+        // Get rows with Web SQL Database spec compliance.
+        var len = results.rows.length;
+        console.log('Values found: ', len);
+        for (let i = 0; i < len; i++) {
+          let row = results.rows.item(i);
+          console.log(`Employee name: ${row.firstname} ${row.lastname}`);
+        }
+      });
+    });
+  }
+
+  errorCB(err) {
+    console.log("SQL Error: " + err);
+  }
+
+  successCB() {
+    console.log("SQL executed fine");
+  }
+
+  openCB() {
+    console.log("Database OPENED");
   }
 
   render() {
@@ -74,7 +114,7 @@ export default class SleepPatternApp extends Component {
         <Footer backgroundColor='#020C1E'>
           <FooterTab>
             <Button active>
-              Sleep
+              Home
               <Icon name='md-cloudy-night' />
             </Button>
             <Button>
