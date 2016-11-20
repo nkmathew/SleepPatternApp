@@ -40,8 +40,18 @@ import {
 // import AllWidgets from './all-widgets.js';
 // import CountDown from './react-native-countdown.js';
 
-export default class SleepPatternApp extends Component {
+const css = StyleSheet.create({
+  baseText: {
+    fontFamily: 'Cochin',
+    color: 'white'
+  },
+  titleText: {
+    fontSize: 20,
+    fontFamily: 'Arial',
+  },
+});
 
+export default class SleepPatternApp extends Component {
   constructor() {
     super();
     this.state = {
@@ -52,16 +62,16 @@ export default class SleepPatternApp extends Component {
   render() {
     return (
       <Container>
-        <Header>
+        <Header backgroundColor='#020C1E'>
           <Button transparent>
             <Icon name='ios-arrow-back' />
           </Button>
-          <Title>Home</Title>
+          <Title style={css.titleText}>Home</Title>
         </Header>
-        <Content>
-          <H1>Some lovely text to boot</H1>
+        <Content backgroundColor='#1F2B40'>
+          <Text style={css.baseText}>Some lovely text to boot</Text>
         </Content>
-        <Footer>
+        <Footer backgroundColor='#020C1E'>
           <FooterTab>
             <Button active>
               Sleep
