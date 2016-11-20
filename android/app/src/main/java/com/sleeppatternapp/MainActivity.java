@@ -2,8 +2,6 @@ package com.sleeppatternapp;
 
 import com.facebook.react.ReactActivity;
 
-import org.pgsqlite.SQLitePluginPackage;
-
 public class MainActivity extends ReactActivity {
 
     /**
@@ -14,15 +12,4 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "SleepPatternApp";
     }
-
-    /**
-    * A list of packages used by the app. If the app uses additional views
-    * or modules besides the default ones, add more packages here.
-    */
-     @Override
-     protected List<ReactPackage> getPackages() {
-       return Arrays.<ReactPackage>asList(
-         new SQLitePluginPackage(),   // register SQLite Plugin here
-         new MainReactPackage());
-     }
 }
