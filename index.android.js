@@ -4,7 +4,10 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
+
 import {
   AppRegistry,
   StyleSheet,
@@ -34,7 +37,8 @@ import {
 
 // import HomePage from './homepage.js';
 // import AnalyticsPage from './analytics.js';
-import AllWidgets from './all-widgets.js';
+// import AllWidgets from './all-widgets.js';
+// import CountDown from './react-native-countdown.js';
 
 export default class SleepPatternApp extends Component {
 
@@ -59,13 +63,13 @@ export default class SleepPatternApp extends Component {
         </Content>
         <Footer>
           <FooterTab>
-            <Button>
-              Navigate
-              <Icon name='ios-compass' />
-            </Button>
             <Button active>
-              Contact
-              <Icon name='ios-contact-outline' />
+              Sleep
+              <Icon name='md-cloudy-night' />
+            </Button>
+            <Button>
+              Statistics
+              <Icon name='ios-stats' />
             </Button>
           </FooterTab>
         </Footer>
