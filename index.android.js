@@ -37,6 +37,8 @@ import {
 } from 'native-base';
 
 import SleepData from './SleepData.js';
+import Welcome from './welcome.js';
+import Analytics from './analytics.js';
 
 const css = StyleSheet.create({
   baseText: {
@@ -53,11 +55,32 @@ export default class SleepPatternApp extends Component {
   constructor() {
     super();
     this.sleepData = new SleepData();
+    this.state = {
+      tab1: 'true',
+      tab2: 'false',
+    };
   }
 
-  buttonPress() {
-    this.sleepData.startSleeping();
-    this.sleepData.getAllRecords();
+  renderSelectedTab () {
+    if (this.state.tab1) {
+        return (<Welcome/>);
+    } else {
+        return (<Analytics/>);
+    }
+  }
+
+  toggleTab1() {
+    this.setState({
+      tab1: true,
+      tab2: false,
+    });
+  }
+
+  toggleTab2() {
+    this.setState({
+      tab1: false,
+      tab2: true,
+    });
   }
 
   render() {
@@ -70,20 +93,21 @@ export default class SleepPatternApp extends Component {
           <Title style={css.titleText}>Home</Title>
         </Header>
 
-        <Content backgroundColor='#1F2B40'>
-          <Button success rounded onPress={this.buttonPress.bind(this)}>
-            <Icon name='md-timer'/>
-            Start Sleeping
-          </Button>
+        <Content backgroundColor='#1F2B40' padder>
+          {this.renderSelectedTab()}
         </Content>
 
         <Footer backgroundColor='#020C1E'>
           <FooterTab>
-            <Button active>
-              Home
+            <Button
+              active={this.state.tab1}
+              onPress={() => this.toggleTab1()} >
+              Welcome
               <Icon name='md-cloudy-night' />
             </Button>
-            <Button>
+            <Button
+              active={this.state.tab2}
+              onPress={() => this.toggleTab2()} >
               Statistics
               <Icon name='ios-stats' />
             </Button>
