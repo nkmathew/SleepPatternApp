@@ -122,6 +122,15 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
+
+            applicationVariants.all { variant ->
+                renameAPK(variant, defaultConfig, 'R')
+            }
+        }
+        debug {
+            applicationVariants.all { variant ->
+                renameAPK(variant, defaultConfig, 'T')
+            }
         }
     }
     // applicationVariants are e.g. debug, release
@@ -130,11 +139,11 @@ android {
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
             def versionCodes = ["armeabi-v7a":1, "x86":2]
-            def abi = output.getFilter(OutputFile.ABI)
-            if (abi != null) {  // null for the universal-debug, universal-release variants
-                output.versionCodeOverride =
+                def abi = output.getFilter(OutputFile.ABI)
+                if (abi != null) {  // null for the universal-debug, universal-release variants
+                    output.versionCodeOverride =
                         versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
-            }
+                }
         }
     }
 }
@@ -151,4 +160,14 @@ dependencies {
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
+}
+
+def renameAPK(variant, defaultConfig, buildType) {
+ variant.outputs.each { output ->
+     def formattedDate = new Date().format('yyyyMMdd')
+
+     def file = output.packageApplication.outputFile
+     def fileName = applicationName + "_v" + defaultConfig.versionCode + "_" + formattedDate + "_" + buildType + ".apk"
+     output.packageApplication.outputFile = new File(file.parent, fileName)
+ }
 }
