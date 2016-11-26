@@ -167,7 +167,7 @@ def renameAPK(variant, defaultConfig, buildType) {
      def formattedDate = new Date().format('yyyyMMdd')
 
      def file = output.packageApplication.outputFile
-     def fileName = applicationName + "_v" + defaultConfig.versionCode + "_" + formattedDate + "_" + buildType + ".apk"
+     def fileName = applicationName + "-v" + defaultConfig.versionCode + "-" + formattedDate + "-" + buildType + ".apk"
      output.packageApplication.outputFile = new File(file.parent, fileName)
  }
 }
