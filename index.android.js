@@ -56,8 +56,8 @@ export default class SleepPatternApp extends Component {
     super();
     this.sleepData = new SleepData();
     this.state = {
-      tab1: 'true',
-      tab2: 'false',
+      tab1: true,
+      tab2: false,
     };
   }
 
