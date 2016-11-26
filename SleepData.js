@@ -28,9 +28,30 @@ export default class SleepData {
   }
 
   /**
+   * Renders all the sleeping data from the db in the analytics page
+   */
+  renderData(that) {
+    this.connection.transaction((transact) => {
+      transact.executeSql(`SELECT * FROM sleeping_data`, [], (_, results) => {
+        var totalRecords = results.rows.length;
+        records = [];
+        for (let i = 0; i < totalRecords; i++) {
+          let row = results.rows.item(i);
+          records.push(row);
+        }
+        // console.log('Records returned: ', records);
+        that.setState({isLoading:false, records:records});
+      });
+    });
+  }
+
+  /**
    * Prints all the records in the table as a string
    */
-  getAllRecords() {
+  getAllRecords(that) {
+    // console.log('Joke before:', that.state.joke)
+    that.setState({joke: 'Another joke'});
+    // console.log('Joke after:', that.state.joke)
     this.connection.transaction((transact) => {
       transact.executeSql(`SELECT * FROM sleeping_data`, [], (_, results) => {
         var totalRecords = results.rows.length;
