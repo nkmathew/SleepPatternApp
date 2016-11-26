@@ -71,14 +71,10 @@ export default class SleepPatternApp extends Component {
         </Header>
 
         <Content backgroundColor='#1F2B40'>
-          <Card backgroundColor='#71CCFF'>
-            <CardItem backgroundColor='#71CCFF'>
-              <Button rounded onPress={this.buttonPress.bind(this)}>
-                <Icon name='md-timer'/>
-                Start Sleeping
-              </Button>
-            </CardItem>
-          </Card>
+          <Button success rounded onPress={this.buttonPress.bind(this)}>
+            <Icon name='md-timer'/>
+            Start Sleeping
+          </Button>
         </Content>
 
         <Footer backgroundColor='#020C1E'>
