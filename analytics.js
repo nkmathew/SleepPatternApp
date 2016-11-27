@@ -53,12 +53,16 @@ export default class Analytics extends Component {
       let sleep_time = moment(record.sleep_time, fmt);
       let wake_time = record.wake_time;
       let hours_slept = 0;
-      let sleep_debt = 0;
+      let sleep_debt = 8; // Minimun recommended hours of sleep
       if (wake_time == null) {
         wake_time = '----';
       } else {
         wake_time = moment(wake_time, fmt).format('HH:mm');
         hours_slept = moment(wake_time, fmt).diff(sleep_time);
+      }
+      sleep_debt -= hours_slept;
+      if (sleep_debt > 0) {
+        sleep_debt = `+${sleep_debt}`;
       }
       return (
         <ListItem key={i} style={css.data}>
@@ -73,6 +77,9 @@ export default class Analytics extends Component {
           </Col>
           <Col style={css.data}>
             <Txt>{hours_slept}</Txt>
+          </Col>
+          <Col style={css.data}>
+            <Txt>{sleep_debt}</Txt>
           </Col>
         </ListItem>
       );
@@ -100,6 +107,9 @@ export default class Analytics extends Component {
           <Col>
             <Text style={css.header}>Hours Slept</Text>
           </Col>
+          <Col>
+            <Text style={css.header}>Sleep Dept</Text>
+          </Col>
         </ListItem>
         <List>
           {this.state.records}
@@ -115,6 +125,9 @@ const css = StyleSheet.create({
     fontWeight: 'bold'
   },
   data: {
-    padding: 0
+    padding: 0,
+    backgroundColor: '#020C1E',
+    borderColor: '#1F2B40',
+    borderWidth: 1
   }
 });
