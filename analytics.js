@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Navigator } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Navigator,
+  StyleSheet
+} from 'react-native';
 
 import {
   Container,
@@ -32,17 +38,11 @@ export default class Analytics extends Component {
   constructor() {
     super();
     this.sleepData = new SleepData();
+    this.sleepData.renderData(this);
     this.state = {
-      isLoading: false,
+      isLoading: true,
       records: []
     }
-  }
-
-  buttonPress() {
-    this.sleepData.startSleeping();
-    this.sleepData.renderData(this);
-    // this.setState({joke: 'Another joke'});
-    // console.log('Sleep Joke: ', this.state.joke);
   }
 
   render() {
@@ -61,55 +61,60 @@ export default class Analytics extends Component {
         hours_slept = moment(wake_time, fmt).diff(sleep_time);
       }
       return (
-        <ListItem key={i}>
-          <Col>
+        <ListItem key={i} style={css.data}>
+          <Col style={css.data}>
             <Txt>{curr_date.format('D/M')}</Txt>
           </Col>
-          <Col>
+          <Col style={css.data}>
             <Txt>{sleep_time.format('HH:mm')}</Txt>
           </Col>
-          <Col>
+          <Col style={css.data}>
             <Txt>{wake_time}</Txt>
           </Col>
-          <Col>
+          <Col style={css.data}>
             <Txt>{hours_slept}</Txt>
           </Col>
         </ListItem>
       );
     });
-    var t=12;
-    // if (this.state.isLoading) {
-    //   return (
-    //     <Content>
-    //       <Txt>Loading...</Txt>
-    //     <Content>
-    //   );
-    // }
+    if (!this.state.records.length) {
+      return (
+        <Content>
+          <Spinner color='#6AC0F1' />
+        </Content>
+      );
+    }
     return (
       <Content>
         <Txt>Found {this.state.records.length} Records</Txt>
         <ListItem>
           <Col>
-            <Txt>Date</Txt>
+            <Text style={css.header}>Date</Text>
           </Col>
           <Col>
-            <Txt>Sleep Time</Txt>
+            <Text style={css.header}>Sleep Time</Text>
           </Col>
           <Col>
-            <Txt>Wake Time</Txt>
+            <Text style={css.header}>Wake Time</Text>
           </Col>
           <Col>
-            <Txt>Hours Slept</Txt>
+            <Text style={css.header}>Hours Slept</Text>
           </Col>
         </ListItem>
         <List>
           {this.state.records}
         </List>
-        <Button success rounded onPress={this.buttonPress.bind(this)}>
-          <Icon name='md-timer'/>
-          Start Sleeping
-        </Button>
       </Content>
     )
   }
 }
+
+const css = StyleSheet.create({
+  header: {
+    color: '#6AC0F1',
+    fontWeight: 'bold'
+  },
+  data: {
+    padding: 0
+  }
+});

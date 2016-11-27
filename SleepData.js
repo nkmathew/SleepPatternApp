@@ -32,7 +32,8 @@ export default class SleepData {
    */
   renderData(that) {
     this.connection.transaction((transact) => {
-      transact.executeSql(`SELECT * FROM sleeping_data`, [], (_, results) => {
+      let sql = 'SELECT * FROM sleeping_data ORDER BY sleep_time';
+      transact.executeSql(sql, [], (_, results) => {
         var totalRecords = results.rows.length;
         records = [];
         for (let i = 0; i < totalRecords; i++) {
@@ -72,7 +73,7 @@ export default class SleepData {
   startSleeping() {
     this.connection.transaction((transact) => {
       // transact.executeSql(`
-      // DELETE FROM sleeping_data
+      //   DELETE FROM sleeping_data
       // `);
       transact.executeSql(`
         INSERT INTO sleeping_data (curr_date, sleep_time) VALUES

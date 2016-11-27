@@ -24,34 +24,29 @@ import {
 } from 'native-base';
 
 import Txt from './Txt';
+import SleepData from './SleepData';
 
 export default class Welcome extends Component {
 
   constructor() {
     super();
+    this.sleepData = new SleepData();
+  }
+
+  buttonPress() {
+    this.sleepData.startSleeping();
+    this.sleepData.renderData(this);
+    // this.setState({joke: 'Another joke'});
+    // console.log('Sleep Joke: ', this.state.joke);
   }
 
   render() {
-
-    rows = [
-      <Col><Txt>Another One</Txt></Col>
-    ]
-
     return (
       <Content>
-        <List>
-          <ListItem>
-            <Col>
-              <Txt>Simon Mignolet</Txt>
-            </Col>
-            <Col>
-              <Txt>Simon Mignolet</Txt>
-            </Col>
-            <Col>
-              <Txt>Simon Mignolet</Txt>
-            </Col>
-          </ListItem>
-        </List>
+        <Button success rounded onPress={this.buttonPress.bind(this)}>
+          <Icon name='md-timer'/>
+          Start Sleeping
+        </Button>
       </Content>
     )
   }
