@@ -23,6 +23,8 @@ import {
   Col
 } from 'native-base';
 
+import Txt from './Txt';
+
 export default class Welcome extends Component {
 
   constructor() {
@@ -32,7 +34,7 @@ export default class Welcome extends Component {
   render() {
 
     rows = [
-      <Col><Text>Another One</Text></Col>
+      <Col><Txt>Another One</Txt></Col>
     ]
 
     return (
@@ -40,13 +42,13 @@ export default class Welcome extends Component {
         <List>
           <ListItem>
             <Col>
-              <Text>Simon Mignolet</Text>
+              <Txt>Simon Mignolet</Txt>
             </Col>
             <Col>
-              <Text>Simon Mignolet</Text>
+              <Txt>Simon Mignolet</Txt>
             </Col>
             <Col>
-              <Text>Simon Mignolet</Text>
+              <Txt>Simon Mignolet</Txt>
             </Col>
           </ListItem>
         </List>

@@ -23,7 +23,8 @@ import {
   Col
 } from 'native-base';
 
-import SleepData from './SleepData.js';
+import SleepData from './SleepData';
+import Txt from './Txt';
 import moment from 'moment';
 
 export default class Analytics extends Component {
@@ -45,7 +46,7 @@ export default class Analytics extends Component {
   }
 
   render() {
-    // this.state.records = [<Text key='1'>From the list</Text>];
+    // this.state.records = [<Txt key='1'>From the list</Txt>];
     let fmt = 'YYYY-MM-DD h:m:s';
     this.state.records = this.state.records.map((record, i) => {
       let curr_date = moment(record.curr_date, fmt);
@@ -62,16 +63,16 @@ export default class Analytics extends Component {
       return (
         <ListItem key={i}>
           <Col>
-            <Text>{curr_date.format('D/M')}</Text>
+            <Txt>{curr_date.format('D/M')}</Txt>
           </Col>
           <Col>
-            <Text>{sleep_time.format('HH:mm')}</Text>
+            <Txt>{sleep_time.format('HH:mm')}</Txt>
           </Col>
           <Col>
-            <Text>{wake_time}</Text>
+            <Txt>{wake_time}</Txt>
           </Col>
           <Col>
-            <Text>{hours_slept}</Text>
+            <Txt>{hours_slept}</Txt>
           </Col>
         </ListItem>
       );
@@ -80,25 +81,25 @@ export default class Analytics extends Component {
     // if (this.state.isLoading) {
     //   return (
     //     <Content>
-    //       <Text>Loading...</Text>
+    //       <Txt>Loading...</Txt>
     //     <Content>
     //   );
     // }
     return (
       <Content>
-        <Text>Fond {this.state.records.length} Records</Text>
+        <Txt>Found {this.state.records.length} Records</Txt>
         <ListItem>
           <Col>
-            <Text>Date</Text>
+            <Txt>Date</Txt>
           </Col>
           <Col>
-            <Text>Sleep Time</Text>
+            <Txt>Sleep Time</Txt>
           </Col>
           <Col>
-            <Text>Wake Time</Text>
+            <Txt>Wake Time</Txt>
           </Col>
           <Col>
-            <Text>Hours Slept</Text>
+            <Txt>Hours Slept</Txt>
           </Col>
         </ListItem>
         <List>
