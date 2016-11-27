@@ -76,7 +76,7 @@ export default class SleepData {
       // `);
       transact.executeSql(`
         INSERT INTO sleeping_data (curr_date, sleep_time) VALUES
-        (CURRENT_DATE, CURRENT_TIMESTAMP)
+        (CURRENT_DATE, DATETIME('NOW', 'LOCALTIME'))
       `);
     });
   }
