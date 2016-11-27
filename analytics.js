@@ -57,7 +57,7 @@ export default class Analytics extends Component {
       if (wake_time == null) {
         wake_time = '----';
       } else {
-        hours_slept = moment(wake_time, fmt).diff(sleep_time, 'minutes');
+        hours_slept = moment(wake_time, fmt).diff(sleep_time, 'hours');
         wake_time = moment(wake_time, fmt).format('HH:mm');
       }
       sleep_debt = hours_slept - sleep_debt;
