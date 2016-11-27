@@ -39,7 +39,7 @@ export default class SleepData {
           let row = results.rows.item(i);
           records.push(row);
         }
-        // console.log('Records returned: ', records);
+        console.log(`Records returned: ${totalRecords}, ${results}`);
         that.setState({isLoading:false, records:records});
       });
     });
@@ -71,9 +71,12 @@ export default class SleepData {
    */
   startSleeping() {
     this.connection.transaction((transact) => {
+      // transact.executeSql(`
+      // DELETE FROM sleeping_data
+      // `);
       transact.executeSql(`
-        INSERT INTO sleeping_data (curr_date, sleep_time, wake_time) VALUES
-        (CURRENT_DATE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+        INSERT INTO sleeping_data (curr_date, sleep_time) VALUES
+        (CURRENT_DATE, CURRENT_TIMESTAMP)
       `);
     });
   }

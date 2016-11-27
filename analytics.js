@@ -24,6 +24,7 @@ import {
 } from 'native-base';
 
 import SleepData from './SleepData.js';
+import moment from 'moment';
 
 export default class Analytics extends Component {
 
@@ -37,7 +38,7 @@ export default class Analytics extends Component {
   }
 
   buttonPress() {
-    // this.sleepData.startSleeping();
+    this.sleepData.startSleeping();
     this.sleepData.renderData(this);
     // this.setState({joke: 'Another joke'});
     // console.log('Sleep Joke: ', this.state.joke);
@@ -45,20 +46,32 @@ export default class Analytics extends Component {
 
   render() {
     // this.state.records = [<Text key='1'>From the list</Text>];
+    let fmt = 'YYYY-MM-DD h:m:s';
     this.state.records = this.state.records.map((record, i) => {
+      let curr_date = moment(record.curr_date, fmt);
+      let sleep_time = moment(record.sleep_time, fmt);
+      let wake_time = record.wake_time;
+      let hours_slept = 0;
+      let sleep_debt = 0;
+      if (wake_time == null) {
+        wake_time = '----';
+      } else {
+        wake_time = moment(wake_time, fmt).format('HH:mm');
+        hours_slept = moment(wake_time, fmt).diff(sleep_time);
+      }
       return (
         <ListItem key={i}>
           <Col>
-            <Text>{record.id}</Text>
+            <Text>{curr_date.format('D/M')}</Text>
           </Col>
           <Col>
-            <Text>{record.curr_date}</Text>
+            <Text>{sleep_time.format('HH:mm')}</Text>
           </Col>
           <Col>
-            <Text>{record.sleep_time}</Text>
+            <Text>{wake_time}</Text>
           </Col>
           <Col>
-            <Text>{record.wake_time}</Text>
+            <Text>{hours_slept}</Text>
           </Col>
         </ListItem>
       );
@@ -73,6 +86,21 @@ export default class Analytics extends Component {
     // }
     return (
       <Content>
+        <Text>Fond {this.state.records.length} Records</Text>
+        <ListItem>
+          <Col>
+            <Text>Date</Text>
+          </Col>
+          <Col>
+            <Text>Sleep Time</Text>
+          </Col>
+          <Col>
+            <Text>Wake Time</Text>
+          </Col>
+          <Col>
+            <Text>Hours Slept</Text>
+          </Col>
+        </ListItem>
         <List>
           {this.state.records}
         </List>
