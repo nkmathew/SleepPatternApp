@@ -57,10 +57,10 @@ export default class Analytics extends Component {
       if (wake_time == null) {
         wake_time = '----';
       } else {
+        hours_slept = moment(wake_time, fmt).diff(sleep_time, 'minutes');
         wake_time = moment(wake_time, fmt).format('HH:mm');
-        hours_slept = moment(wake_time, fmt).diff(sleep_time);
       }
-      sleep_debt -= hours_slept;
+      sleep_debt = hours_slept - sleep_debt;
       if (sleep_debt > 0) {
         sleep_debt = `+${sleep_debt}`;
       }
@@ -84,7 +84,7 @@ export default class Analytics extends Component {
         </ListItem>
       );
     });
-    if (!this.state.records.length) {
+    if (this.state.isLoading) {
       return (
         <Content>
           <Spinner color='#6AC0F1' />

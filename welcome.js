@@ -31,10 +31,13 @@ export default class Welcome extends Component {
   constructor() {
     super();
     this.sleepData = new SleepData();
+    this.state = {
+      buttonText: 'Going to Sleep'
+    }
   }
 
   buttonPress() {
-    this.sleepData.startSleeping();
+    this.sleepData.startSleeping(this);
     this.sleepData.renderData(this);
     // this.setState({joke: 'Another joke'});
     // console.log('Sleep Joke: ', this.state.joke);
@@ -45,7 +48,7 @@ export default class Welcome extends Component {
       <Content>
         <Button success rounded onPress={this.buttonPress.bind(this)}>
           <Icon name='md-timer'/>
-          Start Sleeping
+          {this.state.buttonText}
         </Button>
       </Content>
     )

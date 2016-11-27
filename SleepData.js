@@ -32,7 +32,7 @@ export default class SleepData {
    */
   renderData(that) {
     this.connection.transaction((transact) => {
-      let sql = 'SELECT * FROM sleeping_data ORDER BY sleep_time';
+      let sql = 'SELECT * FROM sleeping_data ORDER BY sleep_time DESC';
       transact.executeSql(sql, [], (_, results) => {
         var totalRecords = results.rows.length;
         records = [];
@@ -70,15 +70,28 @@ export default class SleepData {
   /**
    * Stop the sleeping timer and record the time
    */
-  startSleeping() {
+  startSleeping(that) {
     this.connection.transaction((transact) => {
-      // transact.executeSql(`
-      //   DELETE FROM sleeping_data
-      // `);
-      transact.executeSql(`
-        INSERT INTO sleeping_data (curr_date, sleep_time) VALUES
-        (CURRENT_DATE, DATETIME('NOW', 'LOCALTIME'))
-      `);
+      let sql = 'SELECT * FROM sleeping_data WHERE wake_time is null';
+      transact.executeSql(sql, [], (_, results) => {
+        // transact.executeSql(`
+        //   DELETE FROM sleeping_data
+        // `);
+        let asleep = results.rows.length !== 0;
+        if (!asleep) {
+          transact.executeSql(`
+          INSERT INTO sleeping_data (curr_date, sleep_time) VALUES
+          (CURRENT_DATE, DATETIME('NOW', 'LOCALTIME'))
+          `);
+          that.setState({buttonText:'Waking Up!'});
+        } else {
+          transact.executeSql(`
+          UPDATE sleeping_data SET wake_time = DATETIME('NOW', 'LOCALTIME')
+          WHERE wake_time is null
+          `);
+          that.setState({buttonText:'Going to Sleep...'});
+        }
+      });
     });
   }
 
