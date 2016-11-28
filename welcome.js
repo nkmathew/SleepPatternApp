@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Navigator } from 'react-native';
+
+import {
+  View,
+  Text,
+  ScrollView,
+  Navigator,
+  StyleSheet
+} from 'react-native';
 
 import {
   Container,
@@ -57,7 +64,7 @@ export default class Welcome extends Component {
       buttonIcon = <Icon name='ios-time'/>;
     }
     return (
-      <Content>
+      <Content style={css.welcome}>
         <Button style={{backgroundColor:buttonColor}}
           rounded onPress={this.buttonPress.bind(this)}>
           {buttonIcon}
@@ -67,3 +74,10 @@ export default class Welcome extends Component {
     )
   }
 }
+
+const css = StyleSheet.create({
+  welcome: {
+    paddingLeft: 100,
+    paddingTop: 150,
+  }
+});
