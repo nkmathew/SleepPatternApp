@@ -52,18 +52,28 @@ const css = StyleSheet.create({
 });
 
 export default class SleepPatternApp extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.sleepData = new SleepData();
     this.state = {
-      tab1: false,
-      tab2: true,
+      tab1: true,
+      tab2: false,
+      buttonName: 'Going to Sleep',
+      buttonColor: 'red'
     };
+  }
+
+  buttonName(name, color) {
+    this.state.buttonName = name;
+    this.state.buttonColor = color;
   }
 
   renderSelectedTab () {
     if (this.state.tab1) {
-        return (<Welcome/>);
+      return (
+        <Welcome name={this.state.buttonName} color={this.state.buttonColor}
+          buttonName={this.buttonName.bind(this)}/>
+      );
     } else {
         return (<Analytics/>);
     }
@@ -102,7 +112,7 @@ export default class SleepPatternApp extends Component {
             <Button
               active={this.state.tab1}
               onPress={() => this.toggleTab1()} >
-              Welcome
+              Home
               <Icon name='md-cloudy-night' />
             </Button>
             <Button

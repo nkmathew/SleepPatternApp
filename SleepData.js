@@ -83,13 +83,13 @@ export default class SleepData {
           INSERT INTO sleeping_data (curr_date, sleep_time) VALUES
           (CURRENT_DATE, DATETIME('NOW', 'LOCALTIME'))
           `);
-          that.setState({buttonText:'Waking Up!'});
+          that.changeName('Waking Up!', 'red');
         } else {
           transact.executeSql(`
           UPDATE sleeping_data SET wake_time = DATETIME('NOW', 'LOCALTIME')
           WHERE wake_time is null
           `);
-          that.setState({buttonText:'Going to Sleep...'});
+          that.changeName('Going to Sleep...', 'green');
         }
       });
     });

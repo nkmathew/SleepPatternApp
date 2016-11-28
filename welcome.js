@@ -28,26 +28,32 @@ import SleepData from './SleepData';
 
 export default class Welcome extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.sleepData = new SleepData();
     this.state = {
-      buttonText: 'Going to Sleep'
+      buttonText: this.props.name,
+      buttonColor: this.props.color
     }
   }
 
   buttonPress() {
     this.sleepData.startSleeping(this);
     this.sleepData.renderData(this);
-    // this.setState({joke: 'Another joke'});
-    // console.log('Sleep Joke: ', this.state.joke);
+  }
+
+  changeName(newName, newColor) {
+    this.state.buttonText = newName;
+    this.state.buttonColor = newColor;
+    this.props.buttonName(newName, newColor);
   }
 
   render() {
     return (
       <Content>
-        <Button success rounded onPress={this.buttonPress.bind(this)}>
-          <Icon name='md-timer'/>
+        <Button style={{backgroundColor:this.state.buttonColor}}
+          rounded onPress={this.buttonPress.bind(this)}>
+          <Icon name='ios-stopwatch'/>
           {this.state.buttonText}
         </Button>
       </Content>
