@@ -58,21 +58,19 @@ export default class SleepPatternApp extends Component {
     this.state = {
       tab1: true,
       tab2: false,
-      buttonName: 'Going to Sleep',
-      buttonColor: 'red'
+      status: 'awake'
     };
   }
 
-  buttonName(name, color) {
-    this.state.buttonName = name;
-    this.state.buttonColor = color;
+  buttonStatus(status) {
+    this.state.status = status;
   }
 
   renderSelectedTab () {
     if (this.state.tab1) {
       return (
-        <Welcome name={this.state.buttonName} color={this.state.buttonColor}
-          buttonName={this.buttonName.bind(this)}/>
+        <Welcome status={this.state.status}
+          buttonStatus={this.buttonStatus.bind(this)}/>
       );
     } else {
         return (<Analytics/>);
@@ -97,10 +95,11 @@ export default class SleepPatternApp extends Component {
     return (
       <Container>
         <Header backgroundColor='#020C1E'>
-          <Button transparent>
+          <Button transparent
+            onPress={() => this.toggleTab1()} >
             <Icon name='ios-arrow-back' />
           </Button>
-          <Title style={css.titleText}>Home</Title>
+          <Title onPress={() => this.toggleTab1()} style={css.titleText}>Home</Title>
         </Header>
 
         <Content backgroundColor='#1F2B40' padder>

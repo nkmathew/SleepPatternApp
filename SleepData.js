@@ -40,7 +40,6 @@ export default class SleepData {
           let row = results.rows.item(i);
           records.push(row);
         }
-        console.log(`Records returned: ${totalRecords}, ${results}`);
         that.setState({isLoading:false, records:records});
       });
     });
@@ -50,9 +49,6 @@ export default class SleepData {
    * Prints all the records in the table as a string
    */
   getAllRecords(that) {
-    // console.log('Joke before:', that.state.joke)
-    that.setState({joke: 'Another joke'});
-    // console.log('Joke after:', that.state.joke)
     this.connection.transaction((transact) => {
       transact.executeSql(`SELECT * FROM sleeping_data`, [], (_, results) => {
         var totalRecords = results.rows.length;
@@ -83,22 +79,16 @@ export default class SleepData {
           INSERT INTO sleeping_data (curr_date, sleep_time) VALUES
           (CURRENT_DATE, DATETIME('NOW', 'LOCALTIME'))
           `);
-          that.changeName('Waking Up!', 'red');
+          that.changeStatus('asleep');
         } else {
           transact.executeSql(`
           UPDATE sleeping_data SET wake_time = DATETIME('NOW', 'LOCALTIME')
           WHERE wake_time is null
           `);
-          that.changeName('Going to Sleep...', 'green');
+          that.changeStatus('awake');
         }
       });
     });
-  }
-
-  /**
-   * Start the timer and record the current time
-   */
-  stopSleeping() {
   }
 
   errorCB(err) {

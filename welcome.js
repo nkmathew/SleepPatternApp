@@ -32,8 +32,7 @@ export default class Welcome extends Component {
     super(props);
     this.sleepData = new SleepData();
     this.state = {
-      buttonText: this.props.name,
-      buttonColor: this.props.color
+      status: this.props.status
     }
   }
 
@@ -42,19 +41,27 @@ export default class Welcome extends Component {
     this.sleepData.renderData(this);
   }
 
-  changeName(newName, newColor) {
-    this.state.buttonText = newName;
-    this.state.buttonColor = newColor;
-    this.props.buttonName(newName, newColor);
+  changeStatus(status) {
+    // console.log('Changing status: ', status);
+    this.state.status = status;
+    this.props.buttonStatus(status);
   }
 
   render() {
+    var buttonText = 'Waking up';
+    var buttonColor = '#e52c0b';
+    var buttonIcon = <Icon name='ios-stopwatch'/>;
+    if (this.state.status == 'awake') {
+      buttonText = 'Going to Sleep...';
+      buttonColor = 'green';
+      buttonIcon = <Icon name='ios-time'/>;
+    }
     return (
       <Content>
-        <Button style={{backgroundColor:this.state.buttonColor}}
+        <Button style={{backgroundColor:buttonColor}}
           rounded onPress={this.buttonPress.bind(this)}>
-          <Icon name='ios-stopwatch'/>
-          {this.state.buttonText}
+          {buttonIcon}
+          {buttonText}
         </Button>
       </Content>
     )
