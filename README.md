@@ -40,6 +40,7 @@ This app is the equivalent of a basic CRUD app in your framework of choice.
 ### Screenshot
 
 ![](http://image.prntscr.com/image/d2ecd2e447054a2698956a9a26fceb2d.png)
+![](http://image.prntscr.com/image/f48fb56f91b74c3ab3de74df624f0e1b.png)
 ![](http://image.prntscr.com/image/a9e6257ed225485b8f6ee3d681e16d15.png)
 
 
